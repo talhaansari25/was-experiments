@@ -3,104 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSS Styling Methods</title>
-    
+    <title>CSS Styling Demonstration</title>
     <!-- External CSS -->
     <link rel="stylesheet" href="styles.css">
-    
     <!-- Internal CSS -->
     <style>
-        .internal-style {
-            background-color: #e3f2fd;
-            border: 2px solid #1976d2;
-            border-radius: 8px;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 20px;
-            margin: 20px 0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: #f9f9f9;
         }
         
-        .internal-style h2 {
-            color: #0d47a1;
-            border-bottom: 2px solid #64b5f6;
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
             padding-bottom: 10px;
             margin-top: 0;
-        }
-        
-        .internal-style p {
-            color: #424242;
-            line-height: 1.6;
-            font-size: 16px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1 style="text-align: center; color: #d32f2f; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">
-            CSS Styling Methods Demonstration
-        </h1>
-    </header>
+    <h1>CSS Styling Demonstration</h1>
     
-    <main>
-        <!-- Inline CSS Example -->
-        <div style="background-color: #ffebee; border: 2px dashed #f44336; 
-                    padding: 15px; margin: 20px 0; border-radius: 5px;">
-            <h2 style="color: #c62828; margin-top: 0;">Inline CSS Styling</h2>
-            <p style="color: #424242; line-height: 1.5;">
-                This div is styled using <strong>inline CSS</strong> with the style attribute directly in the HTML elements.
-                Inline styles have the highest specificity and will override other styles.
-            </p>
-            <ul style="list-style-type: square; color: #616161;">
-                <li>Highest specificity</li>
-                <li>Hard to maintain</li>
-                <li>Use sparingly for one-off styles</li>
-            </ul>
-        </div>
+    <div class="section">
+        <h2 class="section-title">1. Different Font Styles</h2>
+        <!-- Inline CSS -->
+        <p style="font-family: 'Arial', sans-serif; font-size: 18px; color: #e74c3c;">
+            This paragraph uses inline CSS styling with Arial font.
+        </p>
         
-        <!-- Internal CSS Example -->
-        <div class="internal-style">
-            <h2>Internal CSS Styling</h2>
-            <p>
-                This div is styled using <strong>internal CSS</strong> with style tags in the head section.
-                Internal CSS is better for single-page styling as it keeps styles separate from HTML structure.
-            </p>
-            <ul>
-                <li>Medium specificity</li>
-                <li>Better organization than inline</li>
-                <li>Good for single-page applications</li>
-            </ul>
-        </div>
+        <p class="serif-font">
+            This paragraph uses external CSS with Georgia serif font.
+        </p>
         
-        <!-- External CSS Example -->
-        <div class="external-style">
-            <h2>External CSS Styling</h2>
-            <p>
-                This div is styled using <strong>external CSS</strong> from a separate styles.css file.
-                External CSS is the most maintainable approach for multi-page websites.
-            </p>
-            <ul>
-                <li>Lowest specificity (but most maintainable)</li>
-                <li>Best for large projects</li>
-                <li>Enables style reuse across pages</li>
-            </ul>
-        </div>
-        
-        <!-- Specificity Demonstration -->
-        <div class="specificity-demo" style="background-color: #e8f5e9; border-color: #388e3c;">
-            <h2>Specificity in Action</h2>
-            <p>
-                This div has both external and inline styles. Notice how the inline border-color overrides 
-                the external style due to higher specificity.
-            </p>
-            <p class="override-example">
-                This paragraph has a class that's styled in external CSS, but the inline style below will override it.
-                <span style="color: #7b1fa2; font-weight: bold;">This text has inline styling that overrides the external styles.</span>
-            </p>
-        </div>
-    </main>
+        <p class="cursive-font">
+            This paragraph uses internal CSS with cursive font style.
+        </p>
+    </div>
     
-    <footer style="background-color: #212121; color: #f5f5f5; text-align: center; 
-                   padding: 15px; margin-top: 30px;">
-        <p>CSS Styling Methods &copy; 2023</p>
-    </footer>
+    <div class="section">
+        <h2 class="section-title">2. Background Image Control</h2>
+        <div class="bg-repeat">
+            <h3>Background with repeat</h3>
+            <p>This div has a background image that repeats both horizontally and vertically.</p>
+        </div>
+        
+        <div class="bg-no-repeat">
+            <h3>Background with no-repeat</h3>
+            <p>This div has a background image that doesn't repeat.</p>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2 class="section-title">3. Link Styling</h2>
+        <p>Hover over these links to see different states:</p>
+        <ul class="link-demo">
+            <li><a href="#unvisited">Unvisited Link</a></li>
+            <li><a href="#visited">Visited Link</a> (click it to see the visited state)</li>
+            <li><a href="#active">Active Link</a> (hold down mouse button)</li>
+            <li><a href="#hover">Hover Link</a> (hover over it)</li>
+        </ul>
+    </div>
+    
+    <div class="section">
+        <h2 class="section-title">4. Customized Cursors</h2>
+        <p>Hover over these elements to see different cursor styles:</p>
+        <div class="cursor-demo">
+            <div class="cursor-default">Default</div>
+            <div class="cursor-pointer">Pointer</div>
+            <div class="cursor-wait">Wait</div>
+            <div class="cursor-help">Help</div>
+            <div class="cursor-crosshair">Crosshair</div>
+        </div>
+    </div>
 </body>
 </html>

@@ -12,6 +12,7 @@
       --light-color: #f8f9fa;
       --dark-color: #212529;
       --success-color: #4cc9f0;
+      --warning-color: #f8961e;
       --card-bg: #ffffff;
       --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       --transition: all 0.3s ease;
@@ -42,20 +43,21 @@
       text-align: center;
       margin-bottom: 3rem;
       padding: 2rem 0;
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.9);
       border-radius: 10px;
       box-shadow: var(--shadow);
       position: relative;
       overflow: hidden;
+      border-bottom: 5px solid var(--primary-color);
     }
     
-    header::before {
+    header::after {
       content: '';
       position: absolute;
-      top: 0;
+      bottom: 0;
       left: 0;
       width: 100%;
-      height: 5px;
+      height: 3px;
       background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
     }
     
@@ -71,7 +73,69 @@
     .subtitle {
       color: var(--primary-color);
       font-size: 1.1rem;
+      font-weight: 500;
+    }
+    
+    .authors {
+      font-style: italic;
+      color: var(--accent-color);
+      margin-top: 0.5rem;
+    }
+    
+    .manual-section {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-left: 5px solid var(--warning-color);
+      transition: var(--transition);
+    }
+    
+    .manual-section:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .manual-info h2 {
+      color: var(--secondary-color);
+      margin-bottom: 0.5rem;
+      font-size: 1.5rem;
+    }
+    
+    .manual-info p {
+      color: var(--dark-color);
       opacity: 0.8;
+    }
+    
+    .download-btn {
+  background: linear-gradient(135deg, #4361ee, #3a0ca3); /* Blue gradient */
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: var(--transition);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+}
+
+.download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 14px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #3a0ca3, #4361ee); /* Reversed blue gradient on hover */
+}
+    
+    .download-btn::before {
+      content: '📘';
+      margin-right: 8px;
+      font-size: 1.2em;
     }
     
     .experiment-list {
@@ -179,6 +243,11 @@
       font-size: 0.9em;
     }
     
+    .view-link {
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+    
     /* Responsive adjustments */
     @media (max-width: 768px) {
       .experiment-list {
@@ -188,12 +257,25 @@
       h1 {
         font-size: 2rem;
       }
+      
+      .manual-section {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .download-btn {
+        margin-top: 1rem;
+      }
     }
     
     /* Animation */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .manual-section {
+      animation: fadeIn 0.4s ease forwards;
     }
     
     .experiment-card {
@@ -216,8 +298,17 @@
   <div class="container">
     <header>
       <h1>WAS Experiments Repository</h1>
-      <p class="subtitle">By Talha Ansari & Saherish Kazi </p>
+      <p class="subtitle">Web Application Development - Laboratory Exercises</p>
+      <p class="authors">By Talha Ansari & Saherish Kazi</p>
     </header>
+    
+    <div class="manual-section">
+      <div class="manual-info">
+        <h2>WAS Lab Manual</h2>
+        <p>Complete laboratory manual for all experiments</p>
+      </div>
+      <a href="manual.docx" download class="download-btn">Download Manual</a>
+    </div>
     
     <div class="experiment-list">
       <div class="experiment-card">
@@ -284,7 +375,7 @@
       <div class="experiment-card">
         <h2>9. Web Applications with PHP/Servlets</h2>
         <ul class="file-list">
-          <li><a href="Week9/">View Codes →</a></li>
+          <li><a href="Week9/" class="view-link">View Codes →</a></li>
         </ul>
       </div>
     </div>

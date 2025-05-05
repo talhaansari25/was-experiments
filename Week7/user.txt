@@ -1,0 +1,64 @@
+<?php
+// Function to calculate sum of digits
+function sumOfDigits($number) {
+    $sum = 0;
+    $num = $number;
+    
+    while ($num != 0) {
+        $digit = $num % 10;
+        $sum += $digit;
+        $num = (int)($num / 10);
+    }
+    
+    return $sum;
+}
+
+echo "SUM OF DIGITS CALCULATOR\n\n";
+
+
+// Get user input
+echo "Enter a number: ";
+$input = trim(fgets(STDIN));
+
+// Validate input
+if (is_numeric($input)) {
+    $number = (int)$input;
+    $sum = sumOfDigits($number);
+    echo "\nThe sum of digits in $number is: $sum\n";
+} else {
+    echo "\nError: Please enter a valid number.\n";
+}
+echo "-------------------------\n\n";
+// Function to check if a number is palindrome
+function isPalindrome($number) {
+    $original = $number;
+    $reverse = 0;
+    
+    while ($number != 0) {
+        $digit = $number % 10;
+        $reverse = $reverse * 10 + $digit;
+        $number = (int)($number / 10);
+    }
+    
+    return ($original == $reverse);
+}
+
+echo "PALINDROME NUMBER CHECKER\n\n";
+
+
+// Get user input
+echo "Enter a number: ";
+$input = trim(fgets(STDIN));
+
+// Validate input
+if (is_numeric($input)) {
+    $number = (int)$input;
+    $result = isPalindrome($number);
+    
+    echo "\nThe number $number ";
+    echo $result ? "IS a palindrome.\n" : "is NOT a palindrome.\n";
+} else {
+    echo "\nError: Please enter a valid number.\n";
+}
+
+?>

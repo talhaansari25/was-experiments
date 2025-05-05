@@ -1,0 +1,33 @@
+<?php
+// Set a default cookie if not already set
+if (!isset($_COOKIE['user'])) {
+    setcookie("user", "guest", time() + 3600); // Expires in 1 hour
+    header("Refresh:0"); // Reload to access the cookie immediately
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Cookies</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h2>Stored Cookies</h2>
+    <?php
+    if (!empty($_COOKIE)) {
+        echo "<ul>";
+        foreach ($_COOKIE as $name => $value) {
+            echo "<li><strong>$name:</strong> $value</li>";
+        }
+        echo "</ul>";
+    } else {
+        echo "<p>No cookies found in your browser.</p>";
+    }
+    ?>
+    <a href="index.html" class="btn">Back</a>
+</div>
+</body>
+</html>

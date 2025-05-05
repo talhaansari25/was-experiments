@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript POP-UP Demonstrations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .demo-box {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px 0;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        input {
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript POP-UP Box Demonstrations</h1>
+
+    <!-- Problem 1: Display Date -->
+    <div class="demo-box">
+        <h2>1. Display Current Date</h2>
+        <p>Click the button to display the current date in the textbox.</p>
+        <button onclick="displayDate()">Display Date</button>
+        <input type="text" id="dateOutput" readonly>
+    </div>
+
+    <!-- Problem 2: Factorial Calculation -->
+    <div class="demo-box">
+        <h2>2. Factorial Calculator</h2>
+        <p>Click the button to calculate factorial of a number.</p>
+        <button onclick="calculateFactorial()">Calculate Factorial</button>
+    </div>
+
+    <!-- Problem 3: Multiplication Table -->
+    <div class="demo-box">
+        <h2>3. Multiplication Table Generator</h2>
+        <p>Click the button to generate a multiplication table.</p>
+        <button onclick="generateMultiplicationTable()">Generate Table</button>
+    </div>
+
+    <!-- Problem 4: Sum of Numbers -->
+    <div class="demo-box">
+        <h2>4. Sum Calculator</h2>
+        <p>Click the button to add multiple numbers together.</p>
+        <button onclick="calculateSum()">Calculate Sum</button>
+    </div>
+
+    <script>
+        // Problem 1: Display Date in Textbox
+        function displayDate() {
+            const now = new Date();
+            const dateString = now.toLocaleDateString();
+            const timeString = now.toLocaleTimeString();
+            document.getElementById('dateOutput').value = `Today is ${dateString} and the time is ${timeString}`;
+        }
+
+        // Problem 2: Calculate Factorial
+        function calculateFactorial() {
+            const input = prompt("Enter a number to calculate its factorial:");
+            const n = parseInt(input);
+            
+            if (isNaN(n) || n < 0) {
+                alert("Please enter a valid positive number.");
+                return;
+            }
+            
+            let factorial = 1;
+            for (let i = 1; i <= n; i++) {
+                factorial *= i;
+            }
+            
+            alert(`The factorial of ${n} is ${factorial}`);
+        }
+
+        // Problem 3: Multiplication Table
+        function generateMultiplicationTable() {
+            const input = prompt("Enter a number to generate its multiplication table:");
+            const n = parseInt(input);
+            
+            if (isNaN(n)) {
+                alert("Please enter a valid number.");
+                return;
+            }
+            
+            let table = `Multiplication Table for ${n}:\n\n`;
+            for (let i = 1; i <= 10; i++) {
+                table += `${n} × ${i} = ${n * i}\n`;
+            }
+            
+            alert(table);
+        }
+
+        // Problem 4: Sum of Numbers
+        function calculateSum() {
+            let numbers = [];
+            let shouldContinue = true;
+            
+            while (shouldContinue) {
+                const input = prompt("Enter a number to add:");
+                const num = parseFloat(input);
+                
+                if (isNaN(num)) {
+                    alert("Please enter a valid number.");
+                    continue;
+                }
+                
+                numbers.push(num);
+                shouldContinue = confirm("Do you want to add another number?");
+            }
+            
+            if (numbers.length === 0) {
+                alert("No numbers were entered.");
+                return;
+            }
+            
+            const sum = numbers.reduce((total, num) => total + num, 0);
+            alert(`The sum of ${numbers.join(" + ")} is ${sum}`);
+        }
+    </script>
+</body>
+</html>

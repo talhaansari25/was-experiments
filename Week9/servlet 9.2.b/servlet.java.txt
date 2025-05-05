@@ -1,0 +1,45 @@
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class DateTimeServlet extends HttpServlet {
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        
+        // Get current date and time
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+        String currentDate = dateFormat.format(new Date());
+        String currentTime = timeFormat.format(new Date());
+        String dayOfWeek = new SimpleDateFormat("EEEE").format(new Date());
+        
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Current Date and Time</title>");
+        out.println("<style>");
+        out.println("body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }");
+        out.println(".datetime { font-size: 24px; margin: 20px auto; padding: 20px;");
+        out.println("background: #f5f5f5; border-radius: 8px; display: inline-block; }");
+        out.println(".btn { padding: 10px 20px; background: #4CAF50; color: white;");
+        out.println("text-decoration: none; border-radius: 4px; }");
+        out.println("</style>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<h1>Current Date and Time</h1>");
+        out.println("<div class='datetime'>");
+        out.println("<p><strong>Date:</strong> " + currentDate + "</p>");
+        out.println("<p><strong>Time:</strong> " + currentTime + "</p>");
+        out.println("<p><strong>Day:</strong> " + dayOfWeek + "</p>");
+        out.println("</div>");
+        out.println("<a href='datetime.html' class='btn'>Back</a>");
+        out.println("</body>");
+        out.println("</html>");
+    }
+}

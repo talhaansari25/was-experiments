@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Capital Selector</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Montserrat:wght@400;600&family=Pacifico&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #e74c3c;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 20px;
+            color: var(--dark-color);
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--dark-color);
+            margin-bottom: 30px;
+            font-weight: 600;
+            font-size: 2.2rem;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #dfe6e9;
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--dark-color);
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .capital-display {
+            margin-top: 30px;
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .capital-text {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--secondary-color);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin: 0;
+        }
+
+        .hidden {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .flag-icon {
+            margin-right: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .controls {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌍 Country Capital Finder</h1>
+        
+        <div class="input-group">
+            <label for="countrySelect">Select a country:</label>
+            <select id="countrySelect" onchange="showCapital()">
+                <option value="" selected disabled>Choose a country...</option>
+                <option value="France">🇫🇷 France</option>
+                <option value="Japan">🇯🇵 Japan</option>
+                <option value="Brazil">🇧🇷 Brazil</option>
+                <option value="Egypt">🇪🇬 Egypt</option>
+                <option value="Australia">🇦🇺 Australia</option>
+                <option value="India">🇮🇳 India</option>
+            </select>
+        </div>
+        
+        <div class="controls">
+            <div class="input-group">
+                <label for="fontFamily">Font Style:</label>
+                <select id="fontFamily" onchange="updateCapitalStyle()">
+                    <option value="'Roboto', sans-serif">Roboto</option>
+                    <option value="'Montserrat', sans-serif">Montserrat</option>
+                    <option value="'Pacifico', cursive">Pacifico</option>
+                    <option value="'Dancing Script', cursive">Dancing Script</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label for="fontColor">Text Color:</label>
+                <input type="color" id="fontColor" value="#e74c3c" oninput="updateCapitalStyle()">
+            </div>
+            
+            <div class="input-group">
+                <label for="fontSize">Font Size:</label>
+                <input type="range" id="fontSize" min="16" max="48" value="28" oninput="updateCapitalStyle()">
+            </div>
+        </div>
+        
+        <div class="capital-display">
+            <p id="capitalResult" class="capital-text hidden">
+                <!-- Capital will appear here -->
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Country-capital mapping
+        const capitals = {
+            'France': 'Paris',
+            'Japan': 'Tokyo',
+            'Brazil': 'Brasília',
+            'Egypt': 'Cairo',
+            'Australia': 'Canberra',
+            'India': 'New Delhi'
+        };
+
+        function showCapital() {
+            const countrySelect = document.getElementById('countrySelect');
+            const capitalResult = document.getElementById('capitalResult');
+            
+            // Reset animation classes
+            capitalResult.classList.remove('hidden', 'visible');
+            capitalResult.classList.add('hidden');
+            
+            // Get the selected country
+            const selectedCountry = countrySelect.value;
+            
+            // Update the capital text after a brief delay for animation
+            setTimeout(() => {
+                capitalResult.textContent = capitals[selectedCountry];
+                capitalResult.classList.remove('hidden');
+                capitalResult.classList.add('visible');
+                
+                // Apply current styles
+                updateCapitalStyle();
+            }, 100);
+        }
+
+        function updateCapitalStyle() {
+            const capitalResult = document.getElementById('capitalResult');
+            const fontFamily = document.getElementById('fontFamily').value;
+            const fontColor = document.getElementById('fontColor').value;
+            const fontSize = document.getElementById('fontSize').value + 'px';
+            
+            capitalResult.style.fontFamily = fontFamily;
+            capitalResult.style.color = fontColor;
+            capitalResult.style.fontSize = fontSize;
+        }
+
+        // Initialize with default styles
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCapitalStyle();
+        });
+    </script>
+</body>
+</html>

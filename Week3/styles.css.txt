@@ -1,0 +1,73 @@
+/* External CSS Stylesheet - styles.css */
+
+/* Base Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* External Style Example */
+.external-style {
+    background-color: #e8f5e9;
+    border: 2px solid #4caf50;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.external-style h2 {
+    color: #2e7d32;
+    border-bottom: 2px solid #81c784;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+.external-style p {
+    color: #424242;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+.external-style ul {
+    list-style-type: circle;
+    color: #616161;
+    padding-left: 20px;
+}
+
+.external-style li {
+    margin-bottom: 8px;
+}
+
+/* Specificity Demo Styles */
+.specificity-demo {
+    background-color: #e3f2fd;
+    border: 2px solid #2196f3;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.specificity-demo h2 {
+    color: #0d47a1;
+}
+
+.override-example {
+    color: #d84315;
+    font-weight: normal;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 0 10px;
+    }
+    
+    .external-style, .internal-style, .specificity-demo {
+        padding: 15px;
+    }
+}

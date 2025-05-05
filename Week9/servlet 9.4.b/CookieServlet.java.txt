@@ -1,0 +1,47 @@
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class CookieServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        // Add a sample cookie (only if not already present)
+        boolean sampleCookieExists = false;
+        Cookie[] cookies = request.getCookies();
+
+        if (cookies != null) {
+            for (Cookie c : cookies) {
+                if (c.getName().equals("user")) {
+                    sampleCookieExists = true;
+                    break;
+                }
+            }
+        }
+
+        if (!sampleCookieExists) {
+            Cookie newCookie = new Cookie("user", "guest");
+            newCookie.setMaxAge(60 * 60); // 1 hour
+            response.addCookie(newCookie);
+        }
+
+        out.println("<html><head><title>Cookies</title></head><body>");
+        out.println("<h2>Cookies stored in your browser:</h2>");
+
+        cookies = request.getCookies(); // Refresh to get newly added
+        if (cookies != null) {
+            for (Cookie c : cookies) {
+                out.println("<p><b>" + c.getName() + ":</b> " + c.getValue() + "</p>");
+            }
+        } else {
+            out.println("<p>No cookies found.</p>");
+        }
+
+        out.println("</body></html>");
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doPost(request, response);
+    }
+}

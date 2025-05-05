@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Book Haven</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .registration-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            padding: 40px;
+            margin: 20px 0;
+        }
+        .registration-container h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 28px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #7f8c8d;
+            font-weight: 600;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        .form-group input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        .name-fields {
+            display: flex;
+            gap: 15px;
+        }
+        .name-fields .form-group {
+            flex: 1;
+        }
+        .register-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+        .register-btn:hover {
+            background-color: #2980b9;
+        }
+        .login-link {
+            margin-top: 20px;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        .login-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        .success-message {
+            color: #2ecc71;
+            font-size: 16px;
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="registration-container">
+        <h1>Create Your Account</h1>
+        
+        <form id="registrationForm">
+            <div class="name-fields">
+                <div class="form-group">
+                    <label for="firstName">First Name*</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                    <div class="error-message" id="firstName-error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lastName">Last Name*</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                    <div class="error-message" id="lastName-error"></div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address*</label>
+                <input type="email" id="email" name="email" required>
+                <div class="error-message" id="email-error"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password*</label>
+                <input type="password" id="password" name="password" required>
+                <div class="error-message" id="password-error"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password*</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                <div class="error-message" id="confirmPassword-error"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="mobile">Mobile Number*</label>
+                <input type="tel" id="mobile" name="mobile" required>
+                <div class="error-message" id="mobile-error"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="address">Address*</label>
+                <textarea id="address" name="address" rows="3" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; resize: vertical;"></textarea>
+                <div class="error-message" id="address-error"></div>
+            </div>
+            
+            <button type="submit" class="register-btn">Register</button>
+            
+            <div class="success-message" id="success-message">
+                Registration successful! Redirecting to login page...
+            </div>
+        </form>
+        
+        <div class="login-link">
+            Already have an account? <a href="login.html">Login here</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const mobile = document.getElementById('mobile').value;
+            const address = document.getElementById('address').value;
+            
+            // Hide all error messages initially
+            const errorMessages = document.querySelectorAll('.error-message');
+            errorMessages.forEach(msg => {
+                msg.style.display = 'none';
+            });
+            
+            let isValid = true;
+            
+            // Validate First Name
+            if (firstName.trim() === '') {
+                document.getElementById('firstName-error').textContent = 'First name is required';
+                document.getElementById('firstName-error').style.display = 'block';
+                isValid = false;
+            } else if (!/^[a-zA-Z]+$/.test(firstName)) {
+                document.getElementById('firstName-error').textContent = 'First name should contain only alphabets';
+                document.getElementById('firstName-error').style.display = 'block';
+                isValid = false;
+            } else if (firstName.length < 6) {
+                document.getElementById('firstName-error').textContent = 'First name should be at least 6 characters';
+                document.getElementById('firstName-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate Last Name
+            if (lastName.trim() === '') {
+                document.getElementById('lastName-error').textContent = 'Last name is required';
+                document.getElementById('lastName-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate Email
+            if (email.trim() === '') {
+                document.getElementById('email-error').textContent = 'Email is required';
+                document.getElementById('email-error').style.display = 'block';
+                isValid = false;
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                document.getElementById('email-error').textContent = 'Please enter a valid email address';
+                document.getElementById('email-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate Password
+            if (password.trim() === '') {
+                document.getElementById('password-error').textContent = 'Password is required';
+                document.getElementById('password-error').style.display = 'block';
+                isValid = false;
+            } else if (password.length < 6) {
+                document.getElementById('password-error').textContent = 'Password must be at least 6 characters';
+                document.getElementById('password-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate Confirm Password
+            if (confirmPassword.trim() === '') {
+                document.getElementById('confirmPassword-error').textContent = 'Please confirm your password';
+                document.getElementById('confirmPassword-error').style.display = 'block';
+                isValid = false;
+            } else if (password !== confirmPassword) {
+                document.getElementById('confirmPassword-error').textContent = 'Passwords do not match';
+                document.getElementById('confirmPassword-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate Mobile Number
+            if (mobile.trim() === '') {
+                document.getElementById('mobile-error').textContent = 'Mobile number is required';
+                document.getElementById('mobile-error').style.display = 'block';
+                isValid = false;
+            } else if (!/^\d{10}$/.test(mobile)) {
+                document.getElementById('mobile-error').textContent = 'Mobile number must be 10 digits';
+                document.getElementById('mobile-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate Address
+            if (address.trim() === '') {
+                document.getElementById('address-error').textContent = 'Address is required';
+                document.getElementById('address-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // If form is valid, show success message and redirect
+            if (isValid) {
+                document.getElementById('success-message').style.display = 'block';
+                document.getElementById('registrationForm').reset();
+                
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>

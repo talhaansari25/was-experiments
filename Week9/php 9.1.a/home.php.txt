@@ -1,0 +1,31 @@
+<?php
+session_start();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $_SESSION['username'] = $_POST['username'];
+    $_SESSION['start_time'] = time();
+}
+
+if (!isset($_SESSION['username'])) {
+    header("Location: index.html");
+    exit();
+}
+
+$name = $_SESSION['username'];
+$startTime = date("H:i:s", $_SESSION['start_time']);
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello <?php echo htmlspecialchars($name); ?></title>
+</head>
+<body>
+    <div style="text-align: right;">Start Time: <?php echo $startTime; ?></div>
+    <h1>Hello, <?php echo htmlspecialchars($name); ?>!</h1>
+
+    <form action="logout.php" method="post">
+        <input type="submit" value="Logout">
+    </form>
+</body>
+</html>

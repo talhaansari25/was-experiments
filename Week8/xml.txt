@@ -1,0 +1,58 @@
+<?php
+// Valid XML example
+$validXml = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE students [
+<!ELEMENT students (student+)>
+<!ELEMENT student (rno, name, college, branch)>
+<!ELEMENT rno (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT college (#PCDATA)>
+<!ELEMENT branch (#PCDATA)>
+]>
+<students>
+    <student>
+        <rno>47</rno>
+        <name>Talha Ansari</name>
+        <college>GH Raisoni College of Engineering</college>
+        <branch>Computer Science</branch>
+    </student>
+</students>
+XML;
+
+
+
+function validateAndDisplay($xml) {
+    $dom = new DOMDocument;
+    libxml_use_internal_errors(true); // Enable error handling
+    
+    if (!$dom->loadXML($xml)) {
+        echo "not valid\n";
+        libxml_clear_errors();
+        return;
+    }
+    
+    if ($dom->validate()) {
+        echo "This XML document is valid!\n";
+        echo "Student Details:\n";
+        
+        $students = $dom->getElementsByTagName('student');
+        foreach ($students as $student) {
+            echo "Roll No: " . $student->getElementsByTagName('rno')[0]->nodeValue . "\n";
+            echo "Name: " . $student->getElementsByTagName('name')[0]->nodeValue . "\n";
+            echo "College: " . $student->getElementsByTagName('college')[0]->nodeValue . "\n";
+            echo "Branch: " . $student->getElementsByTagName('branch')[0]->nodeValue . "\n";
+            echo "-----------------\n";
+        }
+    } else {
+        echo "not valid\n";
+    }
+    
+    libxml_clear_errors();
+}
+
+echo "Testing Valid XML:\n";
+validateAndDisplay($validXml);
+
+
+?>

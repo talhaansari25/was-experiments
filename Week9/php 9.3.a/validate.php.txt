@@ -1,0 +1,18 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = htmlspecialchars($_POST['name']);
+    $age = (int)$_POST['age'];
+
+    echo "<html><head><title>Result</title></head><body>";
+
+    if ($age < 18) {
+        echo "<h2>Hello $name, you are not authorized to visit the site.</h2>";
+    } else {
+        echo "<h2>Welcome $name to this site.</h2>";
+    }
+
+    echo "</body></html>";
+} else {
+    header("Location: index.html");
+    exit();
+}

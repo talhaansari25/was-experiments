@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number to Words Converter</title>
+    <style>
+        /* Pure CSS Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            font-size: 1.8rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            text-align: left;
+            height: 1rem;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            border-left: 4px solid #3498db;
+            transition: all 0.3s;
+        }
+
+        .result.highlight {
+            background-color: #e8f4fc;
+            border-left-color: #2ecc71;
+        }
+
+        .instructions {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-top: 1.5rem;
+            text-align: left;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Number to Words Converter</h1>
+        
+        <div class="input-group">
+            <input type="text" id="numberInput" placeholder="Enter a number (0-999)" maxlength="3">
+            <div id="errorMessage" class="error-message"></div>
+        </div>
+        
+        <button id="convertBtn">Convert to Words</button>
+        
+        <div id="result" class="result">Your number in words will appear here</div>
+        
+        <div class="instructions">
+            <p><strong>Instructions:</strong></p>
+            <ul>
+                <li>Enter any number between 0 and 999</li>
+                <li>Only digits are allowed (no letters or special characters)</li>
+                <li>Numbers above 999 will not be accepted</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const numberInput = document.getElementById('numberInput');
+            const convertBtn = document.getElementById('convertBtn');
+            const resultDiv = document.getElementById('result');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Function to convert number to words
+            function numberToWords(num) {
+                const units = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+                const teens = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 
+                              'seventeen', 'eighteen', 'nineteen'];
+                const tens = ['', 'ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 
+                              'eighty', 'ninety'];
+                
+                if (num === 0) return 'zero';
+                
+                let words = '';
+                
+                // Hundreds place
+                if (num >= 100) {
+                    words += units[Math.floor(num / 100)] + ' hundred';
+                    num %= 100;
+                    if (num !== 0) words += ' ';
+                }
+                
+                // Tens and units place
+                if (num >= 20) {
+                    words += tens[Math.floor(num / 10)];
+                    num %= 10;
+                    if (num !== 0) words += '-' + units[num];
+                } else if (num >= 10) {
+                    words += teens[num - 10];
+                } else if (num > 0) {
+                    words += units[num];
+                }
+                
+                return words;
+            }
+            
+            // Validate input
+            function validateInput(input) {
+                errorMessage.textContent = '';
+                
+                // Check if empty
+                if (input === '') {
+                    errorMessage.textContent = 'Please enter a number';
+                    return false;
+                }
+                
+                // Check if contains non-digit characters
+                if (!/^\d+$/.test(input)) {
+                    errorMessage.textContent = 'Only numbers are allowed (0-9)';
+                    return false;
+                }
+                
+                // Check if number is in range
+                const num = parseInt(input, 10);
+                if (num < 0 || num > 999) {
+                    errorMessage.textContent = 'Please enter a number between 0 and 999';
+                    return false;
+                }
+                
+                return true;
+            }
+            
+            // Event listener for button click
+            convertBtn.addEventListener('click', function() {
+                const inputValue = numberInput.value.trim();
+                
+                if (validateInput(inputValue)) {
+                    const num = parseInt(inputValue, 10);
+                    const words = numberToWords(num);
+                    
+                    resultDiv.textContent = words.charAt(0).toUpperCase() + words.slice(1);
+                    resultDiv.classList.add('highlight');
+                    
+                    // Remove highlight after animation
+                    setTimeout(() => {
+                        resultDiv.classList.remove('highlight');
+                    }, 1000);
+                }
+            });
+            
+            // Event listener for Enter key
+            numberInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    convertBtn.click();
+                }
+            });
+            
+            // Restrict input to numbers only
+            numberInput.addEventListener('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+                
+                // Limit to 3 digits
+                if (this.value.length > 3) {
+                    this.value = this.value.slice(0, 3);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

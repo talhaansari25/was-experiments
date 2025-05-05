@@ -1,0 +1,69 @@
+<?php
+// Function to calculate sum of digits
+function sumOfDigits($number) {
+    $sum = 0;
+    $num = $number;
+    
+    while ($num != 0) {
+        $digit = $num % 10;
+        $sum += $digit;
+        $num = (int)($num / 10);
+    }
+    
+    return $sum;
+}
+
+// Test cases
+$testNumbers = [12345, 987, 1001, 0, 5];
+
+echo "Sum of Individual Digits Test:\n";
+echo "-----------------------------\n";
+
+foreach ($testNumbers as $number) {
+    $sum = sumOfDigits($number);
+    echo "Number: $number | Sum of digits: $sum\n";
+}
+
+echo "\nEnter a number to calculate digit sum: ";
+
+$inputNumber = 123; // Default value if input not supported
+echo "\nCalculating for input: $inputNumber\n";
+echo "Sum of digits: " . sumOfDigits($inputNumber) . "\n";
+
+
+echo "-----------------------------\n\n";
+
+// Function to check if a number is palindrome
+function isPalindrome($number) {
+    $original = $number;
+    $reverse = 0;
+    
+    while ($number != 0) {
+        $digit = $number % 10;
+        $reverse = $reverse * 10 + $digit;
+        $number = (int)($number / 10);
+    }
+    
+    return ($original == $reverse);
+}
+
+// Test cases
+$testNumbers = [12321, 12345, 1221, 123321, 123];
+
+echo "Palindrome Number Check Test:\n";
+
+
+foreach ($testNumbers as $number) {
+    $result = isPalindrome($number) ? "is a palindrome" : "is not a palindrome";
+    echo "Number: $number | Result: $result\n";
+}
+
+
+echo "\nEnter a number to check if palindrome: ";
+$inputNumber = 12321; // Default value if input not supported
+echo "\nChecking for input: $inputNumber\n";
+$isPal = isPalindrome($inputNumber);
+echo $isPal ? "It is a palindrome\n" : "It is not a palindrome\n";
+
+
+?>

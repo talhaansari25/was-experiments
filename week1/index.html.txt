@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Haven - Online Book Store</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .frame-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .header-frame {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .main-frame {
+            display: flex;
+            flex: 1;
+        }
+        .sidebar-frame {
+            width: 200px;
+            background-color: #34495e;
+            color: white;
+            padding: 20px;
+        }
+        .content-frame {
+            flex: 1;
+            padding: 20px;
+            background-color: #ecf0f1;
+            overflow-y: auto;
+        }
+        .nav-menu {
+            list-style-type: none;
+            padding: 0;
+        }
+        .nav-menu li {
+            margin-bottom: 15px;
+        }
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s;
+            display: block;
+            padding: 8px;
+            border-radius: 4px;
+        }
+        .nav-menu a:hover {
+            background-color: #2c3e50;
+            transform: translateX(5px);
+        }
+        .welcome-message {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .welcome-message h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+        }
+        .welcome-message p {
+            color: #7f8c8d;
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 20px auto;
+            line-height: 1.6;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 10px 5px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="frame-container">
+        <div class="header-frame">
+            <h1>Book Haven</h1>
+            <p>Your Gateway to Infinite Worlds</p>
+        </div>
+        
+        <div class="main-frame">
+            <div class="sidebar-frame">
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="catalogue.html">Book Catalogue</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="registration.html">Register</a></li>
+                </ul>
+            </div>
+            
+            <div class="content-frame">
+                <div class="welcome-message">
+                    <h1>Welcome to Book Haven</h1>
+                    <p>Discover your next favorite book from our extensive collection. Whether you're into thrilling mysteries, heartwarming romances, or mind-expanding non-fiction, we have something for every reader.</p>
+                    <a href="catalogue.html" class="btn">Browse Books</a>
+                    <a href="registration.html" class="btn">Join Now</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            &copy; 2023 Book Haven. All Rights Reserved.
+        </div>
+    </div>
+</body>
+</html>
